@@ -21,7 +21,7 @@ public class Main {
         Duration timeElapsed = Duration.between(start, end);
         System.out.println("Divide & Conquer exec time: " + timeElapsed.toMillis() + " milliseconds");
         System.out.println("Divide & Conquer: " + ans.getDistance());
-        System.out.println("Total count: " + points.getTotalDivideConquer());
+        System.out.println("Total count: " + Points.getTotalDivideConquer());
         System.out.println("\n=============================\n");
         Instant start_ = Instant.now();
         ans_ = points2.bruteForce(points2.getPoints());
@@ -29,7 +29,7 @@ public class Main {
         Duration timeElapsed_ = Duration.between(start_, end_);
         System.out.println("Brute Force exec time: " + timeElapsed_.toMillis() + " milliseconds");
         System.out.println("Brute Force: " + ans_.getDistance());
-        System.out.println("Total count: " + points2.getTotalBruteForce());
+        System.out.println("Total count: " + Points.getTotalBruteForce());
     }
 
 
