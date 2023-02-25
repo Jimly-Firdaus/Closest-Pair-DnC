@@ -7,6 +7,7 @@ public class Main {
     private static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
+        // prompt for input size & dimension
         System.out.print("Total points: ");
         int size = scan.nextInt();
         System.out.print("Dimension per point: ");
@@ -15,23 +16,26 @@ public class Main {
         Points points = new Points(size, dimension);
         Points points2 = points;
         ClosestPair ans, ans_;
+
+        // Divide & Conquer
         Instant start = Instant.now();
         ans = points.divideAndConquer(points.getPoints(), size, 0, dimension);
         Instant end = Instant.now();
         Duration timeElapsed = Duration.between(start, end);
-        System.out.println("Divide & Conquer exec time: " + timeElapsed.toMillis() + " milliseconds");
+
+        System.out.println("\n\nDivide & Conquer exec time: " + timeElapsed.toSeconds() + " seconds");
         System.out.println("Divide & Conquer: " + ans.getDistance());
         System.out.println("Total count: " + Points.getTotalDivideConquer());
         System.out.println("\n=============================\n");
+
+        // Brute Force
         Instant start_ = Instant.now();
         ans_ = points2.bruteForce(points2.getPoints());
         Instant end_ = Instant.now();
         Duration timeElapsed_ = Duration.between(start_, end_);
-        System.out.println("Brute Force exec time: " + timeElapsed_.toMillis() + " milliseconds");
+
+        System.out.println("Brute Force exec time: " + timeElapsed_.toSeconds() + " seconds");
         System.out.println("Brute Force: " + ans_.getDistance());
         System.out.println("Total count: " + Points.getTotalBruteForce());
     }
-
-
 }
-

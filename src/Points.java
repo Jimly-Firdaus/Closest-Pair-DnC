@@ -32,7 +32,6 @@ public class Points {
                 this.points[i].getVector()[j] = random.nextDouble(max + 1) - min;
             }
         }
-
     }
 
     public Point[] getPoints() {
@@ -131,7 +130,6 @@ public class Points {
             }
             return res;
         }
-
     }
 
     public ClosestPair bruteForce (Point[] points) {
@@ -139,7 +137,6 @@ public class Points {
         ClosestPair res = new ClosestPair();
         Point[] temp = new Point[2];
         
-        // Compare each pair of points
         for (int i = 0; i < points.length - 1; i++) {
             for (int j = i + 1; j < points.length; j++) {
                 double distance = euclidDistance(points[i], points[j], false);
@@ -156,4 +153,3 @@ public class Points {
         return res;
     }
 }
-

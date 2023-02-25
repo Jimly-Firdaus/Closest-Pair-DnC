@@ -29,5 +29,4 @@ public class Point {
         }
         System.out.print(")\n");
     }
-
 }
