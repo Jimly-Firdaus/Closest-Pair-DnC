@@ -1,5 +1,3 @@
-cd src
-javac -d ../bin *.java
-cd ../bin
-java Main
+cd bin
+java -jar Tucil2_13521102.jar
 pause
