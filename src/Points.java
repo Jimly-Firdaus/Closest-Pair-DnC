@@ -43,12 +43,18 @@ public class Points {
         return this.size;
     }
 
-    private static double euclidDistance (Point p1, Point p2) {
+    private static double euclidDistance (Point p1, Point p2, boolean div_conquer) {
         double distance = 0;
         for (int i = 0; i < p1.getDimension(); i++) {
             double diff = p1.getVector()[i] - p2.getVector()[i];
             distance += Math.pow(diff, 2);
         }
+        if (div_conquer) {
+            divideAndConquer++;
+        } else {
+            bruteForce++;
+        }
+
         return Math.sqrt(distance);
     }
 
@@ -56,16 +62,16 @@ public class Points {
         if (arr_size == 2) {
             ClosestPair res = new ClosestPair();
             res.setPair(points);
-            res.setDistance(euclidDistance(points[0], points[1]));
+            res.setDistance(euclidDistance(points[0], points[1], true));
             divideAndConquer++;
             return res;
         } 
         else if (arr_size == 3) {
             ClosestPair res = new ClosestPair();
             Point[] temp = new Point[2];
-            double d1 = euclidDistance(points[0], points[1]);
-            double d2 = euclidDistance(points[1], points[2]);
-            double d3 = euclidDistance(points[0], points[2]);
+            double d1 = euclidDistance(points[0], points[1], true);
+            double d2 = euclidDistance(points[1], points[2], true);
+            double d3 = euclidDistance(points[0], points[2], true);
             divideAndConquer += 2; 
             double minDist = Math.min(Math.min(d1, d2), d3);
             if (minDist == d1) {
@@ -111,7 +117,7 @@ public class Points {
                         if (Math.abs(points[i].getVector()[k] - points[j].getVector()[k]) > res.getDistance()) {
                             
                         } else {
-                            distanceInStrip = euclidDistance(points[i], points[j]);
+                            distanceInStrip = euclidDistance(points[i], points[j], true);
                             if (distanceInStrip < res.getDistance()) {
                                 Point[] temp = new Point[2];
                                 temp[0] = points[i];
@@ -136,7 +142,7 @@ public class Points {
         // Compare each pair of points
         for (int i = 0; i < points.length - 1; i++) {
             for (int j = i + 1; j < points.length; j++) {
-                double distance = euclidDistance(points[i], points[j]);
+                double distance = euclidDistance(points[i], points[j], false);
                 bruteForce++;
                 if (distance < shortestDistance) {
                     shortestDistance = distance;
