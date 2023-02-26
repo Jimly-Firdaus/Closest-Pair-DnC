@@ -4,11 +4,13 @@ import java.time.Duration;
 import java.util.Scanner;
 import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
+import java.lang.InterruptedException;
+import java.io.*;
 
 public class Main {
     private static Scanner scan = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // system specs
         OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
         String osName = osBean.getName();
@@ -29,8 +31,9 @@ public class Main {
         
         Points points = new Points(size, dimension);
         Points points2 = points;
+        Points points3 = points2;
         ClosestPair ans, ans_;
-
+        
         // Divide & Conquer
         Instant start = Instant.now();
         ans = points.divideAndConquer(points.getPoints(), size, 0, dimension);
@@ -51,5 +54,31 @@ public class Main {
         System.out.println("Brute Force execution time: " + timeElapsed_.toSeconds() + " seconds (" + timeElapsed_.toSeconds() + " millis)");
         System.out.println("Brute Force: " + ans_.getDistance());
         System.out.println("Total count: " + Points.getTotalBruteForce());
+
+        // visualizing 3D points
+        if (points.getPoints()[0].getDimension() == 3) {
+            OutputCSV.outputCSVHandler(points3, ans);
+
+            // call the Python script to visualize the data
+            try {
+                ProcessBuilder pb = new ProcessBuilder("python", "../src/visualizer.py");
+                pb.redirectErrorStream(true);
+                Process p = pb.start();
+                // read the output of the process (to catch errors)
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        System.out.println(line);
+                    }
+                }
+
+                int exitCode = p.waitFor();
+                if (exitCode != 0) {
+                    System.err.println("Python script exited with error code " + exitCode);
+                }
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
