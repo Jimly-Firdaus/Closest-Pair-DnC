@@ -47,7 +47,7 @@ java Main                  # run Main.class
 │   run.bat
 │
 ├───bin
-│
+│       Tucil2_13521102.jar
 ├───doc
 │       Tucil2_K2_13521102_Jimly Firdaus.pdf
 │
