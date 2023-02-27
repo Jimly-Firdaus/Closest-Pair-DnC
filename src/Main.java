@@ -26,6 +26,11 @@ public class Main {
         // prompt for input size & dimension
         System.out.print("Input total points: ");
         int size = scan.nextInt();
+        while (size < 2) {
+            System.out.println("Please input a valid value! (n > 1)!");
+            System.out.print("Input total points: ");
+            size = scan.nextInt();
+        };
         System.out.print("Dimension per point: ");
         int dimension = scan.nextInt();
         
